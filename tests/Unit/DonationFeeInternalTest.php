@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\DonationFee;
 use App\Exceptions\IntervalException;
+use App\Exceptions\MaxComException;
 use PHPUnit\Exception;
 use Tests\InternalTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -50,8 +51,7 @@ class DonationFeeInternalTest extends InternalTestCase
     public function testCommissionPercentage()
     {
         $this->expectException(IntervalException::class);
-        // GIVEN
-        // Etant donné une donation de 100 et commission de 10%
+
         $donationFees = new DonationFee(100, 31);
 
 
@@ -59,10 +59,68 @@ class DonationFeeInternalTest extends InternalTestCase
     public function testMinAmount()
     {
         $this->expectException(\Exception::class);
-        // GIVEN
-        // Etant donné une donation de 100 et commission de 10%
-        $donationFees = new DonationFee(100, 31);
 
+        $donationFees = new DonationFee(85, 31);
+
+
+    }
+    public function testFixedAndCommissionFeeAmount()
+    {
+
+
+        //GIVEN
+        // Etant donné une donation de 100 et commission de 10%
+        $donationFees = new DonationFee(100, 10);
+
+        //WHEN
+        // Lorsque qu'on appel la méthode getFixedAndCommissionFeeAmount()
+        $actual = $donationFees->getFixedAndCommissionFeeAmount();
+
+        //THEN
+        // Alors la Valeur du don doit être inférieur à 500
+        $expected = 60;
+        $this->assertEquals($expected, $actual);
+
+    }
+    public function testMaxCommission()
+    {
+        //GIVEN
+        // Etant donné une donation de 100 et commission de 10%
+        $donationFees = new DonationFee(500000, 30);
+
+        //WHEN
+        // Lorsque qu'on appel la méthode getFixedAndCommissionFeeAmount()
+        $actual = $donationFees->getFixedAndCommissionFeeAmount();
+
+        //THEN
+        // Alors la Valeur du don doit être inférieur à 500
+        $expected = 500;
+        $this->assertEquals($expected, $actual);
+
+    }
+
+    public function testGetSummary()
+    {
+        //GIVEN
+        // Etant donné une donation de 100 et commission de 10%
+        $donationFees = new DonationFee(100, 10);
+
+        //WHEN
+        // Lorsque qu'on appel la méthode getFixedAndCommissionFeeAmount()
+        $actual = $donationFees->getSummary();
+
+        //THEN
+        // Alors la Valeur du don doit être inférieur à 500
+        $expected = array(
+            "donation"=>100,
+            "perCom"=>10,
+            "comAmount"=>10,
+            "amCollected"=>90,
+            "fixedfee"=>50,
+            "totCom"=>60);
+        $this->assertEquals(count($expected), count($actual));
+        $this->assertSameSize($expected,$actual);
+        $this->assertEquals($expected,$actual);
 
     }
 }

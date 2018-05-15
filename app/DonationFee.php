@@ -10,6 +10,7 @@ namespace App;
 
 
 use App\Exceptions\IntervalException;
+use App\Exceptions\MaxComException;
 
 class DonationFee
 {
@@ -37,7 +38,7 @@ class DonationFee
 
     public function __construct($donation, $commissionPercentage)
     {
-        if ($commissionPercentage < 0 || $commissionPercentage >= 30) {
+        if ($commissionPercentage < 0 || $commissionPercentage > 30) {
             throw new IntervalException();
         }
 
@@ -67,14 +68,28 @@ class DonationFee
 
     /**
      * @return mixed
+     * @throws MaxComException
      */
     public function getFixedAndCommissionFeeAmount()
     {
         $tot = $this->getCommissionAmount() + self::FIXEDFEE;
-        if (!tot <= 500) {
+        if ($tot >= 500) {
             return 500;
-        } else {
-            return tot;
         }
+
+        return $tot;
+
+    }
+    public function getSummary(){
+
+        $summary = array(
+            "donation"=>$this->donation,
+            "perCom"=>$this->commissionPercentage,
+            "comAmount"=>$this->getCommissionAmount(),
+            "amCollected"=>$this->getAmountCollected(),
+            "fixedfee"=>self::FIXEDFEE,
+            "totCom"=>$this->getFixedAndCommissionFeeAmount());
+        return $summary;
+
     }
 }
