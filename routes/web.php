@@ -21,3 +21,9 @@ Route::get('/Project', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/user', 'userController@edituser')->name('user');
+Route::get('/userInfo', 'userController@userInfo')->name('userInfo');
+//Route::get('user/edit/{id}','userController@edituser')->middleware('auth');
+Route::put('update','userController@update' )->name('update');
+Route::get('/createProject', 'projectController@create')->name('createProject');
+

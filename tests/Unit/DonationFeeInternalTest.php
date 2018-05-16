@@ -45,7 +45,7 @@ class DonationFeeInternalTest extends InternalTestCase
 
         //THEN
         // Alors la Valeur du don doit être de 90
-        $expected = 90;
+        $expected = 100-(100*0.1)-50;
         $this->assertEquals($expected, $actual);
     }
     public function testCommissionPercentage()
@@ -115,12 +115,13 @@ class DonationFeeInternalTest extends InternalTestCase
             "donation"=>100,
             "perCom"=>10,
             "comAmount"=>10,
-            "amCollected"=>90,
+            "amCollected"=>40,
             "fixedfee"=>50,
             "totCom"=>60);
         $this->assertEquals(count($expected), count($actual));
         $this->assertSameSize($expected,$actual);
         $this->assertEquals($expected,$actual);
+        $this->assertArrayHasKey('donation',$actual);
 
     }
 }
