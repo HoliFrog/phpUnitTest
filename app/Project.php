@@ -13,4 +13,7 @@ class Project extends Model
     protected $fillable = [
         'projectName','projectDetail', 'creationDate', 'author',
     ];
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
 }

@@ -10,7 +10,9 @@ namespace Tests\Feature;
 use Tests\InternalTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-
+use Faker;
+use App\User;
+use App\Project;
 class ProjectTest extends InternalTestCase
 {
     public function testStatus()
@@ -25,4 +27,5 @@ class ProjectTest extends InternalTestCase
 
         $response->assertSee("Liste des projets");
     }
+
 }
