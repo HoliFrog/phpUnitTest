@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+
 class CreateProjectsTable extends Migration
 {
     /**
@@ -20,6 +21,9 @@ class CreateProjectsTable extends Migration
             $table->date('creationDate');
             $table->string('projectName');
             $table->string('projectDetail');
+        });
+        Schema::table('projects', function (Blueprint $table){
+            $table->integer('user_id')->unsigned()->index();
         });
     }
 

@@ -17,15 +17,28 @@ class ProjectTest extends InternalTestCase
 {
     public function testStatus()
     {
-        $response = $this->get('/Project');
+        $response = $this->get('/Projects');
 
         $response->assertStatus(200);
     }
     public function testString()
     {
-        $response = $this->get('/Project');
+        $response = $this->get('/Projects');
 
         $response->assertSee("Liste des projets");
+    }
+    public function test_it_creates_at_least_hundred_fake_projects()
+    {
+        $projects = factory(Project::class, 15)->create();
+
+        foreach ($projects as $project){
+
+            $this->assertEquals($project->user->name,$project->author);
+    }
+
+        $this->assertTrue(count($projects) >= 15);
+
+
     }
 
 }

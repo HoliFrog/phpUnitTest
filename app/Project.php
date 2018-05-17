@@ -11,9 +11,9 @@ class Project extends Model
     use Notifiable;
 
     protected $fillable = [
-        'projectName','projectDetail', 'creationDate', 'author',
+        'projectName','projectDetail', 'creationDate', 'author','user_id'
     ];
-    public function users(){
-        return $this->belongsToMany(User::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

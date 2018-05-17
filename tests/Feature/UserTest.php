@@ -7,23 +7,38 @@
  */
 
 namespace Tests\Feature;
+
 use Tests\InternalTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Faker;
 use App\User;
 use App\Project;
+
 class UserTest extends InternalTestCase
 {
 
 
     public function test_it_creates_at_least_hundred_fake_projects()
     {
-        $users = factory(User::class, 100)->make();
+        $users = factory(User::class, 100)->create();
 
         $this->assertTrue(count($users) >= 100);
 
+    }
+
+    public function testRelationUserProject()
+    {
+        $users = factory(User::class, 50)
+            ->create()
+            ->each(function ($u) {
+            $u->projects()->save(factory(Project::class)->make());
+        });
+        foreach ($users as $user) {
+echo $user;
+
         }
+    }
 //        $users = [];
 //        $faker = Faker\Factory::create();
 //

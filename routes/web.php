@@ -14,9 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/Project', function () {
-    return view('project');
-});
+
 
 Auth::routes();
 
@@ -26,4 +24,5 @@ Route::get('/userInfo', 'userController@userInfo')->name('userInfo');
 //Route::get('user/edit/{id}','userController@edituser')->middleware('auth');
 Route::put('update','userController@update' )->name('update');
 Route::get('/createProject', 'projectController@create')->name('createProject');
+Route::get('/Projects', 'projectController@index')->name('project');
 

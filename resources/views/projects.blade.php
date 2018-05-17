@@ -65,27 +65,43 @@
     </style>
 </head>
 <body>
-<div class="flex-center position-ref full-height">
-    @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-                <a href="{{ url('/home') }}">Home</a>
-            @else
-                <a href="{{ route('login') }}">Login</a>
-                <a href="{{ route('register') }}">Register</a>
-            @endauth
+<div class="container">
+    <div class="flex-center position-ref full-height">
+        @if (Route::has('login'))
+            <div class="top-right links">
+                @auth
+                    <a href="{{ url('/home') }}">Home</a>
+                @else
+                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('register') }}">Register</a>
+                @endauth
+            </div>
+        @endif
+
+        <div class="content">
+            <div class="title m-b-md">
+                Laravel
+            </div>
+
+            <h1>Liste des projets</h1>
+            <div class="row"><h1>Nom des Projets</h1></div>
+            @foreach($projects as $project)
+                <div class="col-sm-12">
+                    {{$project->projectName}}
+                </div>
+            @endforeach
+            <div class="row"><h1>Autheur</h1></div>
+            @foreach($projects as $project)
+                <div class="col-sm-12">
+                    {{$project->author}}
+                </div>
+            @endforeach
+
+
+            <h2>Créez le votre</h2>
+            <a href="{{ route('createProject') }}"></a>
+
         </div>
-    @endif
-
-    <div class="content">
-        <div class="title m-b-md">
-            Laravel
-        </div>
-        <h1>Liste des projets</h1>
-        <h2>Créez le votre</h2>
-        <a href="{{ route('createProject') }}"></a>
-
-
     </div>
 </div>
 </body>
