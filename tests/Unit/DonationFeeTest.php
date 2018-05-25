@@ -6,11 +6,11 @@ use App\DonationFee;
 use App\Exceptions\IntervalException;
 use App\Exceptions\MaxComException;
 use PHPUnit\Exception;
-use Tests\InternalTestCase;
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class DonationFeeInternalTest extends InternalTestCase
+class DonationFeeTest extends TestCase
 {
     /**
      * Test de la commission prélevée par le site.

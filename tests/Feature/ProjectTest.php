@@ -7,36 +7,36 @@
  */
 
 namespace Tests\Feature;
-use Tests\InternalTestCase;
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Faker;
 use App\User;
 use App\Project;
-class ProjectTest extends InternalTestCase
+
+class ProjectTest extends TestCase
 {
+    use RefreshDatabase;
     public function testStatus()
     {
         $response = $this->get('/Projects');
 
         $response->assertStatus(200);
+
     }
     public function testString()
     {
         $response = $this->get('/Projects');
 
-        $response->assertSee("Liste des projets");
+        $response->assertSee("Liste des Projets");
     }
     public function test_it_creates_at_least_hundred_fake_projects()
     {
-        $projects = factory(Project::class, 15)->create();
+        $project = factory(Project::class)->create();
+        $response = $this->get('/projectDetails/'.$project->id);
+        $response->assertSee($project->projectName);
 
-        foreach ($projects as $project){
 
-            $this->assertEquals($project->user->name,$project->author);
-    }
-
-        $this->assertTrue(count($projects) >= 15);
 
 
     }

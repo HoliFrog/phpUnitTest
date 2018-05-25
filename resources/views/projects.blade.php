@@ -1,108 +1,26 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Projet</title>
+@extends('template')
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-    <!-- Styles -->
-    <style>
-        html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 100;
-            height: 100vh;
-            margin: 0;
-        }
+@section('titre')
+    <h1>Liste des Projets</h1>
 
-        .full-height {
-            height: 100vh;
-        }
+@endsection
 
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
+@section('contenu')
 
-        .position-ref {
-            position: relative;
-        }
-
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-
-        .content {
-            text-align: center;
-        }
-
-        .title {
-            font-size: 84px;
-        }
-
-        .links > a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
-            <div class="top-right links">
-                @auth
-                    <a href="{{ url('/home') }}">Home</a>
-                @else
-                    <a href="{{ route('login') }}">Login</a>
-                    <a href="{{ route('register') }}">Register</a>
-                @endauth
+    <div class="container">
+        @foreach($projects as $project)
+            <div class="row">
+                <div class="col-lg-offset-2 col-lg-7"></div>
+                <h2>{{$project->projectName}}</h2>
+                <a href="{{route('projectDetails',[$project->id])}}"><img src="image/australie.png" alt="photo australie"></a>
+                <p>{{$project->content}}</p>
+                <a href='{{route('projectDetails',[$project->id])}}'><button id="Contribuer"
+                                                                         name="Contribuer" class="btn btn-info">VOIR LE PROJET</button></a>
+                <a href='{{route('projectEdition',[$project->id])}}'><button id="EditP"
+                                                                         name="EditP" class="btn btn-info">Editer LE PROJET</button></a>
             </div>
-        @endif
-
-        <div class="content">
-            <div class="title m-b-md">
-                Laravel
-            </div>
-
-            <h1>Liste des projets</h1>
-            <div class="row"><h1>Nom des Projets</h1></div>
-            @foreach($projects as $project)
-                <div class="col-sm-12">
-                    {{$project->projectName}}
-                </div>
-            @endforeach
-            <div class="row"><h1>Autheur</h1></div>
-            @foreach($projects as $project)
-                <div class="col-sm-12">
-                    {{$project->author}}
-                </div>
-            @endforeach
-
-
-            <h2>Créez le votre</h2>
-            <a href="{{ route('createProject') }}"></a>
-
-        </div>
+    @endforeach
     </div>
-</div>
-</body>
-</html>
+@endsection

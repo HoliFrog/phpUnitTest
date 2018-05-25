@@ -21,8 +21,6 @@ class CreateProjectsTable extends Migration
             $table->date('creationDate');
             $table->string('projectName');
             $table->string('projectDetail');
-        });
-        Schema::table('projects', function (Blueprint $table){
             $table->integer('user_id')->unsigned()->index();
         });
     }

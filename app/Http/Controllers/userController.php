@@ -80,7 +80,7 @@ class userController extends Controller
     public function update(Request $request)
     {
 
-        //dd($request);
+
         Auth::user()->update([
             'name' => $request->name,
             'firstName' => $request->firstName,

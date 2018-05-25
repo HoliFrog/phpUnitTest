@@ -8,14 +8,14 @@
 
 namespace Tests\Feature;
 
-use Tests\InternalTestCase;
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Faker;
 use App\User;
 use App\Project;
 
-class UserTest extends InternalTestCase
+class UserTest extends TestCase
 {
 
 

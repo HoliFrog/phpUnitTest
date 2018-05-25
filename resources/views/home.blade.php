@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('template')
 
-@section('content')
+@section('contenu')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -16,6 +16,8 @@
 
                     You are logged in!
                 </div>
+                <div><a href="{{route('project')}}">Aller voir les projet ICI!!</a></div>
+                <div><a href="{{route('projectCreation')}}">Aller créer votre projet ICI!!</a></div>
             </div>
         </div>
     </div>
